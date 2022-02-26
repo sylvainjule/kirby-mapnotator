@@ -1,0 +1,19 @@
+{
+    "name": "sylvainjule/mapnotator",
+    "description": "Annotate maps in Kirby by drawing markers, paths and shapes.",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sylvain Julé",
+            "email": "contact@sylvain-jule.fr"
+        }
+    ],
+    "require": {
+        "getkirby/composer-installer": "^1.1"
+    },
+    "extra": {
+        "installer-name": "mapnotator"
+    },
+    "minimum-stability": "beta"
+}
