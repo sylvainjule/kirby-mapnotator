@@ -187,7 +187,7 @@ Once the field has at least one shape drawn, it will automatically find its init
 
 ```yaml
 mymap:
-  type: locator
+  type: mapnotator
   zoom:
     min: 2
     default: 12
