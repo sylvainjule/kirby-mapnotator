@@ -205,8 +205,10 @@ export default {
             })
 
             this.syncLayers()
-            this.map.fitBounds(this.customLayer.getBounds())
-
+            let bounds = this.customLayer.getBounds()
+            if(bounds.isValid()) {
+                this.map.fitBounds(bounds)
+            }
 
             this.map.on('pm:create', (e) => {
                 this.updateValue()
