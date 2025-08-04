@@ -42,11 +42,11 @@
                 margin-right: 10px;
             }
             &.disabled {
-                background: darken($color-background, 0%);
-                color: darken($color-background, 12%);
+                background: light-dark(var(--color-gray-100), var(--color-gray-800));
+                color: var(--color-gray-400);
                 pointer-events: none;
                 svg {
-                    fill: darken($color-background, 12%);
+                    fill: var(--color-gray-400);
                 }
             }
         }
