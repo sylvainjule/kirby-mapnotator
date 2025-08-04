@@ -1,26 +1,26 @@
 <template>
     <k-field :input="_uid" v-bind="$props" class="k-mapnotator-field" :style="'--mapnotator-color:'+ color">
         <div class="k-input k-mapnotator-input" data-theme="field">
-            <input ref="input" v-model="location" class="k-text-input" :placeholder="$t('mapnotator.placeholder')" @input="onLocationInput">
-            <button :class="[{disabled: !location.length}]" @click="getCoordinates"><svg><use href="#icon-mapnotator-locate" /></svg> {{ $t('mapnotator.locate') }}</button>
-            <k-dropdown-content v-if="autocomplete" ref="dropdown">
-                <k-dropdown-item v-for="(option, index) in dropdownOptions"
-                                 :key="index"
-                                 @click="select(option)"
-                                 @keydown.native.enter.prevent="select(option)"
-                                 @keydown.native.space.prevent="select(option)">
-                    <span v-html="option.name" />
-                    <span class="k-location-type" v-html="option.type" />
-                </k-dropdown-item>
-            </k-dropdown-content>
+            <form class="k-mapnotator-input-inner">
+                <k-text-input 
+                    ref="input"
+                    v-model="location"
+                    :placeholder="$t('mapnotator.placeholder')"
+                    @input="onLocationInput" />
+                
+                <button :class="[{ disabled: !location.length }]"
+                        @click="getCoordinates"
+                        type="submit">
+                    <svg><use href="#icon-mapnotator-locate" /></svg>
+                    {{ $t("mapnotator.locate") }}
+                </button>
+            </form>
+            <k-picklist-dropdown v-if="autocomplete" ref="dropdown" 
+                  :class="['k-mapnotator-dropdown', {'hidden': !dropdownOptions.length && !location.length}]" :options="dropdownOptions" :search="false" @input="select" />
         </div>
-        <k-dialog ref="dialog" @close="error = ''">
+
+        <k-dialog ref="dialog" class="k-locator-error-dialog" @close="error = ''" :cancelButton="$t('close')" :submitButton="false">
             <k-text>{{ error }}</k-text>
-            <k-button-group slot="footer">
-                <k-button icon="check" @click="$refs.dialog.close()">
-                    {{ $t("confirm") }}
-                </k-button>
-            </k-button-group>
         </k-dialog>
 
         <div class="k-mapnotator-container">
@@ -133,14 +133,14 @@ export default {
     },
     mounted() {
         this.initMap()
-
-        this.$store.subscribeAction({
-            after: (action, state) => {
-                if(action.type == 'content/revert') {
-                    this.syncLayers()
-                }
+    },
+    watch: {
+        value: {
+            immediate: true,
+            handler() {
+                this.syncLayers()
             }
-        })
+        }
     },
     methods: {
         initMap() {
@@ -182,7 +182,7 @@ export default {
               rotateMode:       this.tools  && this.tools.includes('rotate'),
             });
 
-            this.map.pm.setLang(this.$user.language);
+            this.map.pm.setLang(this.$panel.language.code);
 
             this.map.pm.setGlobalOptions({
                 layerGroup: this.customLayer,
@@ -252,47 +252,52 @@ export default {
             }
         },
         onLocationInput() {
-            if(!this.autocomplete) return false
+            if (!this.autocomplete) return false;
 
-            if(this.geocoding && this.location.length) {
-                if(this.geocoding != 'mapbox') return false
+            if (this.geocoding && this.location.length) {
+                if (this.geocoding != "mapbox") return false;
 
-                const fetchInit = { referrerPolicy: 'strict-origin-when-cross-origin' }
+                const fetchInit = {
+                    referrerPolicy: "strict-origin-when-cross-origin",
+                };
 
-                this.limit = 5
+                this.limit = 5;
                 fetch(this.searchQuery, fetchInit)
-                    .then(response => response.json())
-                    .then(response => {
+                    .then((response) => response.json())
+                    .then((response) => {
                         // if places are found
-                        if(response.features.length) {
+                        if (response.features.length) {
                             // keep the relevant ones
-                            let suggestions = response.features.filter(el => el.relevance == 1)
+                            let suggestions = response.features.filter(
+                                (el) => el.relevance == 1
+                            );
                             // make them the dropdown options
-                            this.dropdownOptions = suggestions.map(el => {
+                            this.dropdownOptions = suggestions.map((el) => {
                                 return {
-                                    name: el.place_name,
-                                    type: this.capitalize(el.place_type[0]),
-                                }
-                            })
+                                    text: el.place_name,
+                                    value: el.place_name,
+                                };
+                            });
                             this.$refs.dropdown.open()
-                        }
-                        else {
-                            this.$refs.dropdown.close()
+                        } else {
+                            this.dropdownOptions = []
                         }
                     })
-                    .catch(error => {
-                        this.error = this.$t('locator.error')
-                        this.$refs.dialog.open()
-                        this.$refs.dropdown.close()
-                    })
-            }
+                    .catch((error) => {
+                        this.error = this.$t("locator.error");
+                        this.$refs.dialog.open();
+                        this.dropdownOptions = []
+                    });
+            } 
             else {
-                this.$refs.dropdown.close()
+                this.dropdownOptions = []
             }
         },
-        select(option) {
-            this.location = option.name
-            this.getCoordinates()
+        select(values) {
+            this.location = values[0];
+            this.dropdownOptions = []
+            this.forceHideDropdown = true
+            this.getCoordinates();
         },
         getCoordinates(e) {
             if(e) {

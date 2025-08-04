@@ -3,6 +3,7 @@
     "description": "Annotate maps in Kirby by drawing markers, paths and shapes.",
     "type": "kirby-plugin",
     "license": "MIT",
+    "version": "1.1.0",
     "authors": [
         {
             "name": "Sylvain Julé",

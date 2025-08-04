@@ -9,7 +9,22 @@
     'components/_map.scss';
 
 
+.k-mapnotator-container {
+    border-radius: var(--rounded);
+    overflow: hidden;
+}
+
+.k-mapnotator-error-dialog {
+    .k-dialog-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
 .k-mapnotator-field {
+
+    .k-field-header {
+        --icon-size: 16px;
+    }
 
     /* Input
     ----------------------------*/
@@ -19,27 +34,31 @@
         display: flex;
         align-items: center;
         overflow: visible;
-        z-index: 9999;
+        z-index: 3;
+        &-inner {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
         .k-text-input {
             @include text-truncate;
         }
         button {
-            display: block;
             border: none;
-            display: inline-block;
-            background: $color-dark;
-            color: $color-white;
-            padding: 0 25px 0 20px;
+            background: var(--color-gray-900);
+            color: white;
+            padding: 0 1.5rem 0 1.25rem;
             height: 2.25rem;
-            font-size: $font-size-small;
+            font-size: var(--text-sm);
             outline: 0;
             display: flex;
             align-items: center;
+            gap: .75rem;
             svg {
-                width: 15px;
-                height: 15px;
+                width: 14px;
+                height: 14px;
                 fill: white;
-                margin-right: 10px;
+                max-inline-size: none;
             }
             &.disabled {
                 background: light-dark(var(--color-gray-100), var(--color-gray-800));
@@ -50,18 +69,16 @@
                 }
             }
         }
-        .k-dropdown-content {
-            max-width: 100%;
-            overflow: hidden;
-            .k-location-type {
-                color: #999;
-                margin-left: .25rem;
-                &:before {
-                    content: " (";
-                }
-                &:after {
-                    content: ")";
-                }
+        .k-mapnotator-dropdown {
+            top: calc(100% + 2px) !important;
+            width: 100%;
+            display: block;
+            .info {
+                color: var(--color-gray-500);
+                margin-left: 0.25rem;
+            }
+            &.hidden {
+                display: none;
             }
         }
     }
@@ -93,6 +110,9 @@
 			width: 100%;
 			height: 100%;
 		}
+        .leaflet-control-attribution svg {
+            display: inline-block;
+        }
 	}
 }
 
