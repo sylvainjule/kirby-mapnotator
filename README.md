@@ -2,7 +2,7 @@
 
 Annotate maps and generate GeoJSON in Kirby by drawing markers, paths and shapes.
 
-![screenshot](https://user-images.githubusercontent.com/14079751/155854616-3315a12f-dfce-43dd-9b4f-c1648d48a316.jpg)
+![screenshot](https://github.com/user-attachments/assets/a43c3383-e314-43fe-9b78-89f0059bdedb)
 
 
 ## Overview
