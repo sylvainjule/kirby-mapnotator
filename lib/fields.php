@@ -66,7 +66,7 @@ return [
                     'mapbox.dark'     => 'mapbox/dark-v10',
                 ];
 
-                $setId = option('sylvainjule.mapnotator.mapbox.id');
+                $setId = option('sylvainjule.mapnotator.mapbox.id') ?? '';
                 $id    = array_key_exists($setId, $idSwap) ? $idSwap[$setId] : $setId;
 
                 return array(
