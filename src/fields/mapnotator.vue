@@ -50,6 +50,7 @@ export default {
     },
     props: {
         tiles:        String,
+        tilesKey:     String,
         zoom:         Object,
         center:       Object,
         mapbox:       Object,
@@ -100,7 +101,8 @@ export default {
                 return 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             }
             else if(this.tiles == 'light_all' || this.tiles == 'voyager') {
-                return 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/'+ this.tiles +'/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png')
+                return 'https://basemaps.cartocdn.com/rastertiles/' + this.tiles +'/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png') +
+                    (this.tilesKey ? '?key=' + this.tilesKey : '')
             }
             else return ''
         },

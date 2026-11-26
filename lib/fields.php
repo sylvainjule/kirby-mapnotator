@@ -8,6 +8,9 @@ return [
                 $tiles = $tiles ?? option('sylvainjule.mapnotator.tiles');
                 return str_replace('positron', 'light_all', $tiles);
             },
+            'tilesKey' => function($tilesKey = null) {
+                return $tilesKey ?? option('sylvainjule.locator.tilesKey');
+            },
             'zoom' => function($zoom = []) {
                 return array(
                     'min'     => $zoom['min']     ?? option('sylvainjule.mapnotator.zoom.min'),

@@ -5,6 +5,7 @@ Kirby::plugin('sylvainjule/mapnotator', array(
         'token'        => '',
         'id'           => 'mapbox.outdoors',
         'tiles'        => 'positron',
+        'tilesKey'     => '',
         'zoom.min'     => 2,
         'zoom.default' => 12,
         'zoom.max'     => 18,
