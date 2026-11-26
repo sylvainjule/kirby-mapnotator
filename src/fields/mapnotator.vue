@@ -154,8 +154,8 @@ export default {
             // set the tile layer
             this.tileLayer   = L.tileLayer(this.tileUrl, {attribution: this.attribution})
 
-            // add event listeners to override the panel's referrerpolicy while loading tiles through Mapbox API
-            if(this.tiles == 'mapbox' || this.tiles == 'mapbox.custom') {
+            // add event listeners to override the panel's referrerpolicy while loading tiles through Mapbox API + OSM
+            if(this.tiles == 'mapbox' || this.tiles == 'mapbox.custom' || this.tiles == 'openstreetmap') {
                 this.tileLayer.on('loading', () => document.querySelector("meta[name=referrer]").content = "strict-origin-when-cross-origin")
                 this.tileLayer.on('load', () => document.querySelector("meta[name=referrer]").content = "same-origin")
             }
@@ -313,7 +313,9 @@ export default {
             }
 
             if(this.location.length) {
-                fetch(this.searchQuery)
+                const fetchInit = { referrerPolicy: "strict-origin-when-cross-origin" }
+                
+                fetch(this.searchQuery, fetchInit)
                     .then(response => response.json())
                     .then(response => {
                         if(response.length || Object.keys(response).length) {
