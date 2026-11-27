@@ -6,7 +6,7 @@
   "author": "Sylvain Julé",
   "license": "MIT",
   "scripts": {
-    "dev": "kirbyup src/index.js --watch",
+    "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js",
     "lint": "eslint \"src/**/*.{js,vue}\"",
     "lint:fix": "npm run lint -- --fix",
@@ -16,12 +16,11 @@
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-vue": "^10.1.0",
-    "kirbyup": "^3.3.0",
+    "kirbyup": "^4.0.0",
     "prettier": "^3.5.3"
   },
   "dependencies": {
-    "@geoman-io/leaflet-geoman-free": "^2.11.4",
-    "leaflet": "^1.7.1",
-    "leaflet-draw": "^1.0.4"
+    "@geoman-io/leaflet-geoman-free": "^2.20.8",
+    "leaflet": "^1.9.4"
   }
 }

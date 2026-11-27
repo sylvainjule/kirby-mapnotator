@@ -1,5 +1,9 @@
 <?php
 
+load(array(
+    'SylvainJule\\Mapnotator\\MapnotatorField' => 'lib/MapnotatorField.php',
+), __DIR__);
+
 Kirby::plugin('sylvainjule/mapnotator', array(
     'options' => array(
         'token'        => '',
@@ -19,7 +23,9 @@ Kirby::plugin('sylvainjule/mapnotator', array(
         'language'     => false,
         'color'        => '#2281f7',
     ),
-    'fields'       => require_once __DIR__ . '/lib/fields.php',
+    'fields'       => array(
+        'mapnotator' => SylvainJule\Mapnotator\MapnotatorField::class,
+    ),
     'translations' => array(
         'en' => require_once __DIR__ . '/lib/languages/en.php',
         'fr' => require_once __DIR__ . '/lib/languages/fr.php',

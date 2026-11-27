@@ -1,4 +1,5 @@
 .DS_Store
+index.dev.*
 .cache
 node_modules
 package-lock.json

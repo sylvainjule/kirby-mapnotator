@@ -1,10 +1,13 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
 .k-mapnotator-field {
     .leaflet-pane {
-    	z-index: 1;
+        z-index: 1;
     }
 
     .leaflet-top, .leaflet-bottom {
-    	z-index: 2;
+        z-index: 2;
     }
 
     .leaflet-bar {
@@ -21,30 +24,37 @@
     }
 
     .leaflet-control-zoom-in, .leaflet-control-zoom-out {
-    	background: $color-dark !important;
-    	color: $color-white !important;
-    	width: 30px !important;
-    	height: 30px !important;
+        background: var(--color-gray-900) !important;
+        color: white !important;
+        width: 30px !important;
+        height: 30px !important;
         line-height: 28px !important;
         font-size: 19px !important;
-    	&:hover {
-    		background: lighten($color-dark, 8%) !important;
-    	}
-    	@media screen and (max-width: $breakpoint-menu) {
-    		@include small-controls;
-    	}
+        &:hover {
+            background: var(--color-gray-800) !important;
+        }
+        @media screen and (max-width: $breakpoint-menu) {
+            @include small-controls;
+        }
     }
 
     .leaflet-control-zoom-in {
-    	border-bottom: 1px solid lighten($color-dark, 25%) !important;
+        border-bottom: 1px solid var(--color-gray-800) !important;
     }
 
     .leaflet-control-attribution {
-    	background: lighten($color-background, 2%) !important;
-    	color: lighten($color-dark, 40%) !important;
-    	a {
-    		color: $color-dark;
-    	}
+        background: var(--color-gray-100) !important;
+        color: var(--color-gray-500) !important;
+        a {
+            color: var(--color-gray-800);
+        }
+        svg {
+            display: inline-block;
+        }
+    }
+
+    .leaflet-interactive {
+        stroke-width: 2;
     }
 
     .leaflet-touch .leaflet-control-layers,
@@ -95,7 +105,4 @@
         border-color: var(--mapnotator-color, #2281f7);
     }
 
-    .leaflet-interactive {
-        stroke-width: 2;
-    }
 }
