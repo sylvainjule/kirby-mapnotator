@@ -9,7 +9,7 @@ return [
                 return str_replace('positron', 'light_all', $tiles);
             },
             'tilesKey' => function($tilesKey = null) {
-                return $tilesKey ?? option('sylvainjule.locator.tilesKey');
+                return $tilesKey ?? option('sylvainjule.mapnotator.tilesKey');
             },
             'zoom' => function($zoom = []) {
                 return array(
