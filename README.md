@@ -27,6 +27,8 @@ Annotate maps and generate GeoJSON in Kirby by drawing markers, paths and shapes
 
 ## 1. Installation
 
+> Kirby 5: up to 1.1.2. Kirby 6: 2+
+
 Download and copy this repository to ```/site/plugins/mapnotator```
 
 Alternatively, you can install it with composer: ```composer require sylvainjule/mapnotator```
